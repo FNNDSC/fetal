@@ -42,7 +42,13 @@ function initializeRenderers(){
 
    if (!_webgl_supported) {
      ren3d = sliceZ;
+     // remove all 3d elements
      jQuery('#3d').append(jQuery('<canvas/>'));
+     jQuery('#ventricles').remove();
+     jQuery('#ventricles_label').remove();
+     jQuery('#cortex').remove();
+     jQuery('#cortex_label').remove();
+     jQuery('#options').buttonset('refresh')
    }
    
   ren3d.onShowtime = function() {
