@@ -8,25 +8,11 @@
 jQuery(document).ready(function() {
 
   
-  // initBrowserWarning();
-  // initDnD();
-  // initExamples();
+  detect_viewingmode();
   
-
-  // enable the button set for the atlas selection
-  jQuery('#atlas_selection').buttonset();
-  jQuery('#options').buttonset();
-  // .. and the call backs
-  jQuery('#atlas_selection :radio').click(function(e) {
-
-    var _id = jQuery(this).attr("id");
-    _id = _id.split('_')[1];
-    
-    var _atlas_file = _id;
-    
-    location.href = "index.html?" + _atlas_file;
-    
-  });
+  initBrowserWarning();
+  initDnD();
+  initExamples();
   
   ren3d = null;
   configurator = function() {
@@ -40,34 +26,65 @@ jQuery(document).ready(function() {
     var _file = location.href.match(/(\?)(\w*.\w*)*/)[0];
     _file = _file.replace('?', '').replace('/', ''); // replace any ? or /
     
-    __labelmap = null;
-    
-    // select the correct button for the atlas
-    _week = _file.split('.')[0];
-    if (_file.split('.').length > 1) {
+    if (_file == '14yrold') {
       
-      __labelmap = true;
-      jQuery('#labelmap').attr('checked', true);
-      jQuery('#options').buttonset('refresh');
+      load14yrold();
+      
+    } else if (_file == 'avf') {
+      
+      loadAvf();
+      
+    } else if (_file == '2yrold') {
+      
+      load2yrold();
+      
+    } else if (_file == 'brainstem') {
+      
+      loadBrainstem();
+      
+    } else {
+      
+      loadFile(_file);
       
     }
-    jQuery('#a_' + _week).attr('checked', true);
-    jQuery('#atlas_selection').buttonset('refresh'); // and refresh to
-    // propagate to UI
-    
-    loadFile(_week + '/template.nii');
-    
-  } else {
-    
-    _week = 28;
-    __labelmap = null;
-    jQuery('#a_' + _week).attr('checked', true);
-    jQuery('#atlas_selection').buttonset('refresh'); // and refresh to
-    // propagate to UI
-    
-    loadFile('28/template.nii');
     
   }
+  
+  function switch_orientation(id) {
+
+    var _width = jQuery(id).width();
+    var _height = jQuery(id).height();
+    
+    // now convert to percentage
+    console.log('old', _width, _height);
+    _width = jQuery(id).width() / jQuery(document).width() * 100;
+    _height = jQuery(id).height() / jQuery(document).height() * 100;
+    console.log('new', _width, _height);
+    jQuery(id).height(_width + '%');
+    jQuery(id).width(_height + '%');
+    jQuery(id).css('position', 'absolute');
+    
+  }
+  
+  function detect_viewingmode() {
+
+    // portrait or landscape display
+    if (jQuery(document).width() < jQuery(document).height()) {
+      
+      jQuery(body).removeClass('landscape');
+      jQuery(body).addClass('portrait');
+      
+    } else {
+      
+      jQuery(body).removeClass('portrait');
+      jQuery(body).addClass('landscape');
+      
+    }
+    
+  }
+  
+  // add a handler for viewing mode detecting
+  jQuery(window).resize(detect_viewingmode);
   
 });
 
@@ -75,6 +92,7 @@ var _current_3d_content = null;
 var _current_X_content = null;
 var _current_Y_content = null;
 var _current_Z_content = null;
+
 
 function showLarge(el2, new3d_content) {
 
@@ -89,8 +107,6 @@ function showLarge(el2, new3d_content) {
   }
   
   // from Stackoverflow http://stackoverflow.com/a/6391857/1183453
-  
-  var _old_3d_height = document.getElementById('3d').clientHeight;
   
   var el1 = jQuery('#3d');
   el1.prepend('<span/>'); // drop a marker in place
@@ -113,8 +129,6 @@ function showLarge(el2, new3d_content) {
   
   _current_3d_content.container = document.getElementById(_2dcontainerId);
   _old_2d_content.container = document.getElementById('3d');
-  
-  jQuery('#3d').height(_old_3d_height);
   
   // .. and update the layout
   _current_3d_content = _old_2d_content;
