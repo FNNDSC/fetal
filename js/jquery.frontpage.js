@@ -11,8 +11,8 @@ jQuery(document).ready(function() {
   // initBrowserWarning();
   // initDnD();
   // initExamples();
+  detect_viewingmode();
   
-
   // enable the button set for the atlas selection
   jQuery('#atlas_selection').buttonset();
   jQuery('#options').buttonset();
@@ -69,6 +69,43 @@ jQuery(document).ready(function() {
     
   }
   
+
+  function switch_orientation(id) {
+
+    var _width = jQuery(id).width();
+    var _height = jQuery(id).height();
+    
+    // now convert to percentage
+    console.log('old', _width, _height);
+    _width = jQuery(id).width() / jQuery(document).width() * 100;
+    _height = jQuery(id).height() / jQuery(document).height() * 100;
+    console.log('new', _width, _height);
+    jQuery(id).height(_width + '%');
+    jQuery(id).width(_height + '%');
+    jQuery(id).css('position', 'absolute');
+    
+  }
+  
+  function detect_viewingmode() {
+
+    // portrait or landscape display
+    if (jQuery(document).width() < jQuery(document).height()) {
+      
+      jQuery(body).removeClass('landscape');
+      jQuery(body).addClass('portrait');
+      
+    } else {
+      
+      jQuery(body).removeClass('portrait');
+      jQuery(body).addClass('landscape');
+      
+    }
+    
+  }
+  
+  // add a handler for viewing mode detecting
+  jQuery(window).resize(detect_viewingmode);
+  
 });
 
 var _current_3d_content = null;
@@ -107,6 +144,10 @@ function showLarge(el2, new3d_content) {
   
   var _2dcontainerId = el2.attr('id');
   var _orientation = _2dcontainerId.substr(-1);
+  
+  if (_orientation == 'd') {
+    return;
+  }
   
   var _old_2d_content = eval('_current_' + _orientation + '_content');
   var _old_3d_content = _current_3d_content;

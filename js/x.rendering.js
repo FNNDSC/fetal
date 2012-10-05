@@ -15,13 +15,25 @@ function initializeRenderers(){
     ren3d.container = '3d';    
     ren3d.init();
     ren3d.camera.position = [0,0,300];
+    ren3d.interactor.onTouchStart = ren3d.interactor.onMouseDown = onTouchStart;
+    ren3d.interactor.onTouchEnd = ren3d.interactor.onMouseUp = onTouchEnd3D;    
+
+    // webgl is enabled
+    window.console.log('WebGL supported.');
+    
+    jQuery(body).addClass('webgl_enabled');    
     
   } catch (Error) {
     
-    window.console.log('WebGL not supported.');
+    window.console.log('WebGL *not* supported.');
+    
     _webgl_supported = false;
-    jQuery('#3d').empty();
-    console.log(jQuery('#3d'));
+    
+    // delete the created 3d canvas
+    jQuery('#3d').empty();    
+    
+    jQuery(body).addClass('webgl_disabled');
+    jQuery(body).removeClass('webgl_enabled');
     
   }
   
@@ -29,21 +41,46 @@ function initializeRenderers(){
    sliceX.container = 'sliceX';
    sliceX.orientation = 'X';
    sliceX.init();
+   // observe the on touch thingie to enlarge
+   sliceX.interactor.onTouchStart = sliceX.interactor.onMouseDown = onTouchStart;
+   sliceX.interactor.onTouchEnd = sliceX.interactor.onMouseUp = onTouchEndX;   
   
    sliceY = new X.renderer2D();
    sliceY.container = 'sliceY';
    sliceY.orientation = 'Y';
    sliceY.init();
+   // observe the on touch thingie to enlarge
+   sliceY.interactor.onTouchStart = sliceY.interactor.onMouseDown = onTouchStart;
+   sliceY.interactor.onTouchEnd = sliceY.interactor.onMouseUp = onTouchEndY;   
     
    sliceZ = new X.renderer2D();
    sliceZ.container = 'sliceZ';
+   
+   if (!_webgl_supported) {
+     
+     sliceZ.container = '3d';
+     
+     // move the green slider to the 3d view
+     var el1 = jQuery('#3d');
+     el1.prepend('<span/>'); // drop a marker in place
+     var tag1 = jQuery(el1.children()[0]);
+     tag1.replaceWith(jQuery('#green_slider'));
+     
+   } else {
+     
+     sliceZ.container = 'sliceZ';
+     
+   }
    sliceZ.orientation = 'Z';
    sliceZ.init();
+
+   // observe the on touch thingie to enlarge
+   sliceZ.interactor.onTouchStart = sliceZ.interactor.onMouseDown = onTouchStart;
+   sliceZ.interactor.onTouchEnd = sliceZ.interactor.onMouseUp = onTouchEndZ;
 
    if (!_webgl_supported) {
      ren3d = sliceZ;
      // remove all 3d elements
-     jQuery('#3d').append(jQuery('<canvas/>'));
      jQuery('#ventricles').remove();
      jQuery('#ventricles_label').remove();
      jQuery('#cortex').remove();
@@ -60,7 +97,8 @@ function initializeRenderers(){
       // show any volume also in 2d
        sliceX.add(volume);
        sliceY.add(volume);
-       sliceZ.add(volume);
+       // don't add it again if webgl is not supported
+       if (_webgl_supported){sliceZ.add(volume);}
        sliceX.render();
        sliceY.render();
        sliceZ.render();
@@ -400,4 +438,53 @@ function parse(data) {
 
 };
 
+
+
+//
+// Switch on touch / click (enlarge)
+//
+function onTouchStart() {
+  
+  _touch_started = Date.now();
+  
+};
+
+function onTouchEndX() {
+  
+  onTouchEnd('sliceX','X');
+  
+};
+
+function onTouchEndY() {
+  
+  onTouchEnd('sliceY','Y');
+  
+};
+
+function onTouchEndZ() {
+  
+  onTouchEnd('sliceZ','Z');
+  
+};
+
+function onTouchEnd3D() {
+  
+  onTouchEnd('ren3d','3d');
+  
+}
+
+function onTouchEnd(rend,container) {
+
+  _touch_ended = Date.now();
+  
+  if (_touch_ended - _touch_started < 200) {
+  
+    var _old_2d_content = eval('_current_' + container + '_content');  
+    eval('var cont = '+rend+'.container');    
+    
+    showLarge(jQuery(cont), _old_2d_content);
+    
+  }
+  
+};
 
