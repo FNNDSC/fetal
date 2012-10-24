@@ -21,7 +21,7 @@ function initializeRenderers(){
     // webgl is enabled
     window.console.log('WebGL supported.');
     
-    jQuery(body).addClass('webgl_enabled');    
+    jQuery(document.body).addClass('webgl_enabled');    
     
   } catch (Error) {
     
@@ -32,8 +32,8 @@ function initializeRenderers(){
     // delete the created 3d canvas
     jQuery('#3d').empty();    
     
-    jQuery(body).addClass('webgl_disabled');
-    jQuery(body).removeClass('webgl_enabled');
+    jQuery(document.body).addClass('webgl_disabled');
+    jQuery(document.body).removeClass('webgl_enabled');
     
   }
   
