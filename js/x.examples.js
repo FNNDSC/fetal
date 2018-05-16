@@ -182,10 +182,20 @@ function loadFile(file) {
   // check which type of file it is
   if (_data['volume']['extensions'].indexOf(_fileExtension) >= 0) {
     
+    /* Original code
     // it's a volume
     volume = new X.volume();
     volume.file = 'http://x.babymri.org/?' + file;
     _data.volume.file = volume.file;
+    */
+    
+    // temp hardcoded shift to fnndsc.childrens.harvard.edu
+    // it's a volume
+    volume = new X.volume();
+    volume.file = 'http://fnndsc.childrens.harvard.edu/data/fetal/?' + file;
+    _data.volume.file = volume.file;
+
+
     if (__labelmap) {
       volume.labelmap.file = volume.file.replace('template', 'labelmap');
       volume.labelmap.colortable.file = 'http://x.babymri.org/?genericanatomy.txt';
