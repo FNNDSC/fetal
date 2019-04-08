@@ -40,6 +40,7 @@ function initializeRenderers(){
    sliceX = new X.renderer2D();
    sliceX.container = 'sliceX';
    sliceX.orientation = 'X';
+   sliceX.radiological = false;
    sliceX.init();
    // observe the on touch thingie to enlarge
    sliceX.interactor.onTouchStart = sliceX.interactor.onMouseDown = onTouchStart;
@@ -48,6 +49,7 @@ function initializeRenderers(){
    sliceY = new X.renderer2D();
    sliceY.container = 'sliceY';
    sliceY.orientation = 'Y';
+   sliceY.radiological = false;
    sliceY.init();
    // observe the on touch thingie to enlarge
    sliceY.interactor.onTouchStart = sliceY.interactor.onMouseDown = onTouchStart;
@@ -72,6 +74,7 @@ function initializeRenderers(){
      
    }
    sliceZ.orientation = 'Z';
+   sliceZ.radiological = false;
    sliceZ.init();
 
    // observe the on touch thingie to enlarge
