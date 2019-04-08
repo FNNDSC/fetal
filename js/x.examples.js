@@ -192,6 +192,18 @@ function loadFile(file) {
       volume.labelmap.opacity = 0.7;
       
     }
+    if (__tissue) {
+      volume.labelmap.file = volume.file.replace('tissue', 'labelmap');
+      volume.labelmap.colortable.file = 'http://x.babymri.org/?genericanatomy.txt';
+      volume.labelmap.opacity = 0.7;
+      
+    }
+    if (__regional) {
+      volume.labelmap.file = volume.file.replace('regional', 'labelmap');
+      volume.labelmap.colortable.file = 'http://x.babymri.org/?genericanatomy.txt';
+      volume.labelmap.opacity = 0.7;
+      
+    }
     volume.lowerThreshold = 75;
     ren3d.add(volume);
     
@@ -232,7 +244,19 @@ function loadFile(file) {
       jQuery('#labelmapSwitch').show();
       jQuery('#opacity-labelmap').slider("option", "value", 40);
     }
+    if (__tissue) {
+      // activate the UI for labelmaps
+      jQuery('#tissueSwitch').show();
+      jQuery('#opacity-tissue').slider("option", "value", 40);
+    }
+    if (__regional) {
+      // activate the UI for labelmaps
+      jQuery('#regionalSwitch').show();
+      jQuery('#opacity-regional').slider("option", "value", 40);
+    }
+
     
+
   };
   
 }
@@ -299,5 +323,33 @@ function loadLabelmap() {
   }
   
   location.href = "index.html?" + _week + '.labelmap';
+  
+}
+
+function loadRegional() {
+
+  if (__regional) {
+    
+    volume.labelmap.visible = !volume.labelmap.visible;
+    return;
+    
+
+  }
+  
+  location.href = "index.html?" + _week + '.regional';
+  
+}
+
+function loadTissue() {
+
+  if (__tissue) {
+    
+    volume.labelmap.visible = !volume.labelmap.visible;
+    return;
+    
+
+  }
+  
+  location.href = "index.html?" + _week + '.tissue';
   
 }
