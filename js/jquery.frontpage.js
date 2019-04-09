@@ -40,32 +40,60 @@ jQuery(document).ready(function() {
     var _file = location.href.match(/(\?)(\w*.\w*)*/)[0];
     _file = _file.replace('?', '').replace('/', ''); // replace any ? or /
     
-    __labelmap = null;
+    __labelmap  = null;
+    __tissue    = null;
+    __regional  = null;
     
     // select the correct button for the atlas
-    _week = _file.split('.')[0];
+    _week             = _file.split('.')[0];
+    str_labelmapFile  = 'template.nii';
     if (_file.split('.').length > 1) {
-      
-      __labelmap = true;
-      jQuery('#labelmap').attr('checked', true);
-      jQuery('#options').buttonset('refresh');
+      l_file      = _file.split('.')
+
+      switch(l_file[1]) {
+          case 'labelmap':  
+              __labelmap = true;
+              jQuery('#labelmap').attr('checked', true);
+              jQuery('#options').buttonset('refresh');
+              str_labelmapFile  = 'template.nii';
+              break;
+          case 'tissue':  
+              __tissue  = true;
+              jQuery('#tissue').attr('checked', true);
+              jQuery('#options').buttonset('refresh');
+              str_labelmapFile  = 'tissue.nii';
+              break;
+          case 'regional':  
+              __regional = true;
+              jQuery('#regional').attr('checked', true);
+              jQuery('#options').buttonset('refresh');
+              str_labelmapFile  = 'regional.nii';
+              break;
+      }
+      // __labelmap  = true;
+      // __tissue    = true;
+      // __regional  = true;
+      // jQuery('#labelmap').attr('checked', true);
+      // jQuery('#options').buttonset('refresh');
       
     }
     jQuery('#a_' + _week).attr('checked', true);
     jQuery('#atlas_selection').buttonset('refresh'); // and refresh to
     // propagate to UI
     
-    loadFile(_week + '/template.nii');
+    loadFile(_week + '/' + str_labelmapFile);
     
   } else {
     
-    _week = 28;
-    __labelmap = null;
+    _week       = 'B28';
+    __labelmap  = null;
+    __tissue    = null;
+    __regional  = null;
     jQuery('#a_' + _week).attr('checked', true);
     jQuery('#atlas_selection').buttonset('refresh'); // and refresh to
     // propagate to UI
     
-    loadFile('28/template.nii');
+    loadFile('B28/template.nii');
     
   }
   

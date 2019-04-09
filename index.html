@@ -37,14 +37,14 @@
  -->
 <html>
 <head>
-<title>Slice:Drop</title>
+<title>BCH Fetal Brain Exemplars</title>
 <meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
 
 <meta name='viewport'
   content='width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0' />
 <meta name='description'
-	content='Slice:Drop - Instantly view scientific and medical imaging data in 3D.' />
-<meta name='author' content='Daniel Haehn' />
+	content="Fetal MRI - A collection of fetal exemplars from Boston Children's Hospital." />
+<meta name='author' content='Daniel Haehn and Rudolph Pienaar' />
 
 <link href='css/bootstrap.css' rel='stylesheet' />
 <link href='css/bootstrap-responsive.css' rel='stylesheet' />
@@ -249,9 +249,17 @@
 					<div class='tabbox idTabs' id='volumetabs'>
 						<div class='caption'>VOLUME</div>
 
-						<a href='#volumeTab' class='selected'>Volume</a> <a
-							href='#labelmapTab' id='labelmapSwitch'
+						<a 	href='#volumeTab' class='selected'>Volume</a> 
+
+						<a 	href='#labelmapTab' id='labelmapSwitch'
 							style='margin-left: 50px;'>Labelmap</a>
+
+						<!-- <a 	href='#tissueTab' 	id='tissueSwitch'
+							style='margin-left: 50px;'>Tissue</a> -->
+
+						<!-- <a 	href='#regionalTab' id='regionalSwitch'
+							style='margin-left: 50px;'>Regional</a> -->
+
 						<div id='volumeTab' class='tabContent'>
 
 
@@ -289,9 +297,8 @@
 
 
 						</div>
+
 						<div id='labelmapTab' class='tabContent' style='display: none'>
-
-
 							<div id='visibility-labelmap' style='width: 130px; float: left;'>
 								<div class='menuLabel' style='margin-top: 4px; float: left;'>Show/Hide</div>
 								<div id='labelmapvisibility' class='eye show-icon'
@@ -301,10 +308,37 @@
 							<div class='menuLabel' style='margin-top: 4px; float: left;'>Labelmap
 								Opacity</div>
 							<div id='opacity-labelmap'
-								style='margin-left: 10px; margin-top: 4px; float: left;'></div>
-
-
+								style='margin-left: 10px; margin-top: 4px; float: left;'>
+							</div>
 						</div>
+						<!-- <div id='tissueTab' class='tabContent' style='display: none'>
+							<div id='visibility-tissue' style='width: 130px; float: left;'>
+								<div class='menuLabel' style='margin-top: 4px; float: left;'>Show/Hide</div>
+								<div id='tissuevisibility' class='eye show-icon'
+									style='margin-left: 6px;'></div>
+							</div>
+
+							<div class='menuLabel' style='margin-top: 4px; float: left;'>Tissue
+								Opacity</div>
+							<div id='opacity-tissue'
+								style='margin-left: 10px; margin-top: 4px; float: left;'>
+							</div>
+						</div>
+						<div id='regionalTab' class='tabContent' style='display: none'>
+							<div id='visibility-tissue' style='width: 130px; float: left;'>
+								<div class='menuLabel' style='margin-top: 4px; float: left;'>Show/Hide</div>
+								<div id='labelmapvisibility' class='eye show-icon'
+									style='margin-left: 6px;'></div>
+							</div>
+
+							<div class='menuLabel' style='margin-top: 4px; float: left;'>Regional
+								Opacity</div>
+							<div id='opacity-regional'
+								style='margin-left: 10px; margin-top: 4px; float: left;'>
+							</div>
+						</div> -->
+
+
 					</div>
 
 				</div></li>
@@ -438,10 +472,12 @@
 
 		<!-- Slice:Drop logo -->
 		<div id='blacklogo'>
-			<a href='http://slicedrop.com'><img
-				src='gfx/slicedrop_transparent.png' /></a> <span
+			<a href='http://childrenshospital.org/FNNDSC/'><img
+				src='gfx/BCH_logo_vert.png' height="75"/></a> 
+				<span
 				class='ui-icon ui-icon-image toolbar_icon' title='Split Screen'
-				onclick='javascript:split_screen()'></span><span
+				onclick='javascript:split_screen()'></span>
+				<span
 				class='ui-icon ui-icon-image toolbar_icon' style='left: 20px'
 				title='Split Screen' onclick='javascript:split_screen()'></span>
 		</div>
@@ -449,47 +485,102 @@
 		<!-- Toolbar -->
 		<div></div>
 
-		<div id='atlas_selector'>
-			<span id="atlas_selection" style='margin-top: 3px; float: left;'><input
-				type="radio" id="a_23" name="weeks" /><label for="a_23">23</label>
-				<input type="radio" id="a_24" name="weeks" /><label for="a_24">24</label>
-				<input type="radio" id="a_25" name="weeks" /><label for="a_25">25</label>
-				<input type="radio" id="a_26" name="weeks" /><label for="a_26">26</label>
-				<input type="radio" id="a_27" name="weeks" /><label for="a_27">27</label>
-				<input type="radio" id="a_28" name="weeks" /><label for="a_28">28</label>
-				<input type="radio" id="a_29" name="weeks" /><label for="a_29">29</label>
-				<input type="radio" id="a_30" name="weeks" /><label for="a_30">30</label>
-				<input type="radio" id="a_31" name="weeks" /><label for="a_31">31</label>
-				<input type="radio" id="a_32" name="weeks" /><label for="a_32">32</label>
-				<input type="radio" id="a_33" name="weeks" /><label for="a_33">33</label>
-				<input type="radio" id="a_34" name="weeks" /><label for="a_34">34</label>
-				<input type="radio" id="a_35" name="weeks" /><label for="a_35">35</label>
-				<input type="radio" id="a_36" name="weeks" /><label for="a_36">36</label>
-				<input type="radio" id="a_37" name="weeks" /><label for="a_37">37</label>
-				&nbsp;weeks</span> <span id='options'
-				style='margin-top: 3px; margin-left: 20px; float: right;'><label
-				for="labelmap">Labelmap</label> <input type="checkbox" id="labelmap"
-				name="labelmap" onclick='javascript:loadLabelmap();' /> <label
-				id='ventricles_label' for="ventricles">3D Ventricles</label> <input
-				type="checkbox" id="ventricles" name="ventricles"
-				onclick='javascript:loadVentricles();' /> <label id='cortex_label'
-				for="cortex">3D Cortex</label> <input type="checkbox" id="cortex"
-				name="cortex" onclick='javascript:loadCortex();' /></span>
+		<div style='padding: 30px; text-align: center;'>
+		    <div id='atlas_selector'>
+			    <span id="atlas_selection" style='margin-top: 3px; float: left;'>
+				<input type="radio" id="a_B21" name="weeks" /><label for="a_B21">21</label>
+				<input type="radio" id="a_B22" name="weeks" /><label for="a_B22">22</label>
+				<input type="radio" id="a_B23" name="weeks" /><label for="a_B23">23</label>
+				<!-- <input type="radio" id="a_N23" name="weeks" /><label for="a_N23">N23</label> -->
+				<input type="radio" id="a_B24" name="weeks" /><label for="a_B24">24</label>
+				<!-- <input type="radio" id="a_N24" name="weeks" /><label for="a_N24">N24</label> -->
+				<input type="radio" id="a_B25" name="weeks" /><label for="a_B25">25</label>
+				<!-- <input type="radio" id="a_N25" name="weeks" /><label for="a_N25">N25</label> -->
+				<input type="radio" id="a_B26" name="weeks" /><label for="a_B26">26</label>
+				<!-- <input type="radio" id="a_N26" name="weeks" /><label for="a_N26">N26</label> -->
+				<input type="radio" id="a_B27" name="weeks" /><label for="a_B27">27</label>
+				<!-- <input type="radio" id="a_N27" name="weeks" /><label for="a_N27">N27</label> -->
+				<input type="radio" id="a_B28" name="weeks" /><label for="a_B28">28</label>
+				<!-- <input type="radio" id="a_N28" name="weeks" /><label for="a_N28">N28</label> -->
+				<input type="radio" id="a_B29" name="weeks" /><label for="a_B29">29</label>
+				<!-- <input type="radio" id="a_N29" name="weeks" /><label for="a_N29">N29</label> -->
+				<input type="radio" id="a_B30" name="weeks" /><label for="a_B30">30</label>
+				<!-- <input type="radio" id="a_N30" name="weeks" /><label for="a_N30">N30</label> -->
+				<input type="radio" id="a_B31" name="weeks" /><label for="a_B31">31</label>
+				<!-- <input type="radio" id="a_N31" name="weeks" /><label for="a_N31">N31</label> -->
+				<input type="radio" id="a_B32" name="weeks" /><label for="a_B32">32</label>
+				<!-- <input type="radio" id="a_N32" name="weeks" /><label for="a_N32">N32</label> -->
+				<input type="radio" id="a_B33" name="weeks" /><label for="a_B33">33</label>
+				<!-- <input type="radio" id="a_N33" name="weeks" /><label for="a_N33">N33</label> -->
+				<input type="radio" id="a_B34" name="weeks" /><label for="a_B34">34</label>
+				<!-- <input type="radio" id="a_N34" name="weeks" /><label for="a_N34">N34</label> -->
+				<input type="radio" id="a_B35" name="weeks" /><label for="a_B35">35</label>
+				<!-- <input type="radio" id="a_N35" name="weeks" /><label for="a_N35">N35</label> -->
+				<input type="radio" id="a_B36" name="weeks" /><label for="a_B36">36</label>
+				<!-- <input type="radio" id="a_N36" name="weeks" /><label for="a_N36">N36</label> -->
+				<input type="radio" id="a_B37" name="weeks" /><label for="a_B37">37</label>
+				<!-- <input type="radio" id="a_N37" name="weeks" /><label for="a_N37">N37</label> -->
+				<input type="radio" id="a_B38" name="weeks" /><label for="a_B38">38</label>
+				&nbsp;gestational age</span> 
+
+				<span id='options' style='margin-top: 3px; margin-left: 20px; float: right;'>
+					<!-- <label for="labelmap">Labelmap</label> 
+					<input 
+					type="checkbox" id="labelmap" name="labelmap" 
+					onclick='javascript:loadLabelmap();' /> 
+
+					<label for="tissue">Tissue</label> 
+					<input 
+					type="checkbox" id="tissue" name="tissue" 
+					onclick='javascript:loadTissue();' /> 
+
+					<label for="regional">Regional</label> 
+					<input 
+					type="checkbox" id="regional" name="regional" 
+					onclick='javascript:loadRegional();' />  -->
+
+					
+					<!-- <label id='ventricles_label' for="ventricles">3D Ventricles</label> 
+					<input
+					type="checkbox" id="ventricles" name="ventricles"
+					onclick='javascript:loadVentricles();' /> 
+					
+					<label id='cortex_label' for="cortex">3D Cortex</label> 
+					<input 
+					type="checkbox" id="cortex" name="cortex" 
+					onclick='javascript:loadCortex();' /> -->
+			    </span>
+		    </div>
 		</div>
 	</div>
 
 	<div id='credits'>
+		<a href='http://childrenshospital.org/FNNDSC/' target='_blank'><img
+			src='gfx/logo_chris.png' height="50" /></a>
+		<br>
 		<a
-			href="http://biomedic.doc.ic.ac.uk/brain-development/index.php?n=Main.Fetal"
-			style='color: darkgrey; font-size: 0.9em;' target='_blank'>Data
-			from<br />Imperial College
+			href="https://www.fnndsc.org"
+			style='color: darkgrey; font-size: 0.9em;' target='_blank'>
+			This viewer is copyright Boston Children's Hospital, FNNDSC
 		</a>
+		<br>
+		<a
+			href="http://crl.med.harvard.edu/research/fetal_brain_atlas/request_access.php "
+			style='color: darkgrey; font-size: 0.9em;' target='_blank'>
+			Fetal data: Boston Children's Hospital, CRL
+		</a>
+		<br>
+		<!-- <a
+			href="http://biomedic.doc.ic.ac.uk/brain-development/index.php?n=Main.Fetal"
+			style='color: darkgrey; font-size: 0.9em;' target='_blank'>
+			Fetal data (N): Imperial College London
+		</a> -->
 	</div>
 
-	<div id='bch_logo'>
+	<!-- <div id='bch_logo'>
 		<a href='http://childrenshospital.org/FNNDSC/' target='_blank'><img
 			src='gfx/bch_logo.png' /></a>
-	</div>
+	</div> -->
 
 
 	</div>

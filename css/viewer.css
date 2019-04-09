@@ -169,10 +169,11 @@ Portrait mode for 2D renderers
 }
 
 #atlas_selector {
+  display: inline-block;
 	position: absolute;
 	bottom: 14px;
-	left: 200px;
-	font-size: 1.2em;
+	/* left: 200px; */
+  font-size: 1.2em;
 }
 
 #credits {
